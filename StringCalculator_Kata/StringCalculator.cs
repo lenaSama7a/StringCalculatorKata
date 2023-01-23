@@ -24,6 +24,8 @@ namespace StringCalculator_Kata
 
             foreach (int i in listOfIntegers)
             {
+                if (i > 1000)
+                    continue;
                 sum += i;
             }
             return sum;

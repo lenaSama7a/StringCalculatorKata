@@ -109,5 +109,17 @@ namespace StringCalculatorTest
             Assert.Fail("call to fileExist() didn't throw an ArgumentNullException");
         }
 
+        [TestMethod]
+        [Description("ignore big numbers in string")]
+        public void StringWithBigNumbers()
+        {
+            //Arrange
+            int expectedNumber;
+            int actualNumber = 2;
+            //Act
+            expectedNumber = _sc.Add("1001, 2, D");
+            //Assert
+            Assert.AreEqual(expectedNumber, actualNumber);
         }
+    }
 }
