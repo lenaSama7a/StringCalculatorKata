@@ -65,5 +65,18 @@ namespace StringCalculatorTest
             //Assert
             Assert.AreEqual(expectedNumber, actualNumber);
         }
+
+        [TestMethod]
+        [Description("Sum of numbers in string with new lines between numbers")]
+        public void StringWithNewLines()
+        {
+            //Arrange
+            int expectedNumber;
+            int actualNumber = 10;
+            //Act
+            expectedNumber = _sc.Add("5,4\n1");
+            //Assert
+            Assert.AreEqual(expectedNumber, actualNumber);
+        }
     }
 }
