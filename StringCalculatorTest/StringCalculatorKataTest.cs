@@ -91,5 +91,23 @@ namespace StringCalculatorTest
             //Assert
             Assert.AreEqual(expectedNumber, actualNumber);
         }
-    }
+
+        [TestMethod]
+        [Description("Throw an exception if string has negative numbers")]
+        public void StringWithNegativeNumbers()
+        {
+            try
+            {
+                _sc.Add("1, 4, -1, -5, -7");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return;
+            }
+            //this is message to be showen if the test is failed:
+            Assert.Fail("call to fileExist() didn't throw an ArgumentNullException");
+        }
+
+        }
 }
