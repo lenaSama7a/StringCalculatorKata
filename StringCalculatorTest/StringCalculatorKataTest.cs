@@ -78,5 +78,18 @@ namespace StringCalculatorTest
             //Assert
             Assert.AreEqual(expectedNumber, actualNumber);
         }
+
+        [TestMethod]
+        [Description("Adding numbers in string with different delimiters")]
+        public void StringWithDifferentDelimiters()
+        {
+            //Arrange
+            int expectedNumber;
+            int actualNumber = 3;
+            //Act
+            expectedNumber = _sc.Add("//;\n1;2");
+            //Assert
+            Assert.AreEqual(expectedNumber, actualNumber);
+        }
     }
 }

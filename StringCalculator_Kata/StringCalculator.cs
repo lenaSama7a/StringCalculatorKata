@@ -6,7 +6,7 @@ namespace StringCalculator_Kata
     {
         public int Add(String numbers)
         {
-            String[] separator = { ",", "\n" };
+            String[] separator = { ",", "\n", "//", ":", "." ,";"};
             String[] listOfStrings = numbers.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             List<int> listOfIntegers = new();
             int sum = 0;
