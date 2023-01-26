@@ -1,5 +1,4 @@
-﻿using StringCalculator_Kata;
-using System.Text;
+﻿using System.Text;
 
 namespace StringCalculator_Kata
 {
@@ -7,7 +6,7 @@ namespace StringCalculator_Kata
     {
         public int Add(String numbers)
         {
-            String[] separator = { ",", "\n", "//", ":", "." ,";"};
+            String[] separator = { ",", "\n", GetDelimiter(numbers)};
             String[] listOfStrings = numbers.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             List<int> listOfIntegers = new();
             int sum = 0;
@@ -19,8 +18,8 @@ namespace StringCalculator_Kata
                     listOfIntegers.Add(number);
             }
 
-            if (ContainNegativeNumbers(listOfIntegers))
-                throw new Exception("Negative not allowed: " + NegativeList(listOfIntegers).ToString());
+            if (NegativeList(listOfIntegers).Count > 0 )
+                throw new Exception("Negative not allowed: " + NegativeListMessage(listOfIntegers).ToString());
 
             foreach (int i in listOfIntegers)
             {
@@ -31,21 +30,31 @@ namespace StringCalculator_Kata
             return sum;
         }
 
-        public bool ContainNegativeNumbers(List<int> list)
+        public List<int> NegativeList(List<int> list)
         {
+            List<int> negativeList = new();
             foreach (int i in list)
                 if (i < 0)
-                    return true;
-            return false;
+                    negativeList.Add(i);
+            return negativeList;
         }
 
-        public StringBuilder NegativeList(List<int> list)
+        public StringBuilder NegativeListMessage(List<int> negativeList)
         {
-            StringBuilder negativeList = new StringBuilder();
-            foreach (int i in list)
-                if (i < 0)
-                    negativeList.Append(i + " ");
-            return negativeList;
+            StringBuilder Message = new StringBuilder();
+            foreach (int i in negativeList)
+                Message.Append(i + " ");
+            return Message;
+        }
+
+        public string GetDelimiter(string numbers)
+        {
+            string delimiter = "";
+            if (numbers.StartsWith("//"))
+            {
+                delimiter = numbers.Substring(2, numbers.IndexOf('\n') - 2);
+            }
+            return delimiter;
         }
     }
 }

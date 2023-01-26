@@ -17,10 +17,10 @@ namespace StringCalculatorTest
         public void EmptyString()
         {
             //Arrange
-            int expectedNumber;
-            int actualNumber = 0;
+            int actualNumber;
+            int expectedNumber = 0;
             //Act
-            expectedNumber = _sc.Add("");
+            actualNumber = _sc.Add("");
             //Assert
             Assert.AreEqual(expectedNumber, actualNumber);
         }
@@ -31,10 +31,10 @@ namespace StringCalculatorTest
         public void StringWithOneNumber()
         {
             //Arrange
-            int expectedNumber;
-            int actualNumber = 5;
+            int actualNumber;
+            int expectedNumber = 5;
             //Act
-            expectedNumber = _sc.Add("5, L, S");
+            actualNumber = _sc.Add("5");
             //Assert
             Assert.AreEqual(expectedNumber, actualNumber);
         }
@@ -45,10 +45,10 @@ namespace StringCalculatorTest
         public void StringWithTwoNumbers()
         {
             //Arrange
-            int expectedNumber;
-            int actualNumber = 16;
+            int actualNumber;
+            int expectedNumber = 16;
             //Act
-            expectedNumber = _sc.Add("10, L, 6");
+            actualNumber = _sc.Add("10, 6");
             //Assert
             Assert.AreEqual(expectedNumber, actualNumber);
         }
@@ -58,10 +58,10 @@ namespace StringCalculatorTest
         public void StringWithunknownNumbers()
         {
             //Arrange
-            int expectedNumber;
-            int actualNumber = 26;
+            int actualNumber;
+            int expectedNumber = 26;
             //Act
-            expectedNumber = _sc.Add("16, 10, Lena");
+            actualNumber = _sc.Add("16, 10");
             //Assert
             Assert.AreEqual(expectedNumber, actualNumber);
         }
@@ -71,10 +71,10 @@ namespace StringCalculatorTest
         public void StringWithNewLines()
         {
             //Arrange
-            int expectedNumber;
-            int actualNumber = 10;
+            int actualNumber;
+            int expectedNumber = 10;
             //Act
-            expectedNumber = _sc.Add("5,4\n1");
+            actualNumber = _sc.Add("5,4\n1");
             //Assert
             Assert.AreEqual(expectedNumber, actualNumber);
         }
@@ -84,10 +84,10 @@ namespace StringCalculatorTest
         public void StringWithDifferentDelimiters()
         {
             //Arrange
-            int expectedNumber;
-            int actualNumber = 3;
+            int actualNumber;
+            int expectedNumber = 6;
             //Act
-            expectedNumber = _sc.Add("//;\n1;2");
+            actualNumber = _sc.Add("//;\n5;1");
             //Assert
             Assert.AreEqual(expectedNumber, actualNumber);
         }
@@ -114,10 +114,23 @@ namespace StringCalculatorTest
         public void StringWithBigNumbers()
         {
             //Arrange
-            int expectedNumber;
-            int actualNumber = 2;
+            int actualNumber;
+            int expectedNumber = 2;
             //Act
-            expectedNumber = _sc.Add("1001, 2, D");
+            actualNumber = _sc.Add("1001, 2");
+            //Assert
+            Assert.AreEqual(expectedNumber, actualNumber);
+        }
+
+        [TestMethod]
+        [Description("ignore non digit characters in string")]
+        public void StringWithCharacters()
+        {
+            //Arrange
+            int actualNumber;
+            int expectedNumber = 7;
+            //Act
+            actualNumber = _sc.Add("5, Lena, 2, D");
             //Assert
             Assert.AreEqual(expectedNumber, actualNumber);
         }
