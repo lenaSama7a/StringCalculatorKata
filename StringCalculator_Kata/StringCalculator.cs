@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace StringCalculator_Kata
 {
@@ -19,31 +21,20 @@ namespace StringCalculator_Kata
             }
 
             if (NegativeList(listOfIntegers).Count > 0 )
-                throw new Exception("Negative not allowed: " + NegativeListMessage(listOfIntegers).ToString());
+                throw new Exception("Negative not allowed: " + NegativeListMessage(NegativeList(listOfIntegers)).ToString());
 
-            foreach (int i in listOfIntegers)
-            {
-                if (i > 1000)
-                    continue;
-                sum += i;
-            }
-            return sum;
+            return listOfIntegers.Where(i => i<=1000 ).Sum();
         }
 
         public List<int> NegativeList(List<int> list)
         {
-            List<int> negativeList = new();
-            foreach (int i in list)
-                if (i < 0)
-                    negativeList.Add(i);
+            List<int> negativeList = list.Where(i => i < 0).ToList();
             return negativeList;
         }
 
-        public StringBuilder NegativeListMessage(List<int> negativeList)
+        public string NegativeListMessage(List<int> negativeList)
         {
-            StringBuilder Message = new StringBuilder();
-            foreach (int i in negativeList)
-                Message.Append(i + " ");
+            string Message = string.Join(" ", negativeList);
             return Message;
         }
 
@@ -52,7 +43,8 @@ namespace StringCalculator_Kata
             string delimiter = "";
             if (numbers.StartsWith("//"))
             {
-                delimiter = numbers.Substring(2, numbers.IndexOf('\n') - 2);
+                numbers = numbers.Remove(0,2);
+                delimiter = string.Concat(numbers.TakeWhile(x => !x.Equals('\n')));
             }
             return delimiter;
         }
