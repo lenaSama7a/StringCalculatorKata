@@ -12,13 +12,12 @@ namespace StringCalculator_Kata
             String[] listOfStrings = numbers.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             List<int> listOfIntegers = new();
             int sum = 0;
-
-            foreach (String s in listOfStrings)
-            {
+            
+            listOfIntegers = listOfStrings.Select(s => {
                 int number;
-                if (int.TryParse(s, out number))
-                    listOfIntegers.Add(number);
-            }
+                bool success = int.TryParse(s, out number);
+                return new { number, success };
+            }).Where(pair => pair.success).Select(pair => pair.number).ToList();
 
             if (NegativeList(listOfIntegers).Count > 0 )
                 throw new Exception("Negative not allowed: " + NegativeListMessage(NegativeList(listOfIntegers)).ToString());
